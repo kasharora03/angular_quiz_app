@@ -1,3 +1,125 @@
-li .card:hover{
-    border: 1px solid blue;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.mon{
+    font-family: "Montserrat", sans-serif;
+   }
+.question-navigation {
+    margin-bottom: 20px;
+  }
+  
+  .nav-item {
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Rounded border */
+    margin: 5px; /* Spacing between items */
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .nav-item:hover {
+    transform: scale(1.1);
+  }
+  
+  .nav-item.bg-success {
+    background-color: #1a7a58; /* Green */
+  }
+  
+  .nav-item.bg-warning {
+    background-color: #ffc107; /* Yellow */
+  }
+  
+  .nav-item.bg-danger {
+    background-color: #dc3545; /* Red */
+  }
+  
+  .nav-item.bg-primary {
+    background-color: #007bff; /* Blue */
+  }
+  
+  .card {
+    border-radius: 8px; /* Rounded corners for the card */
+  }
+  
+  .btn {
+    border-radius: 5px; /* Rounded corners for buttons */
+  }
+  
+  .btn-outline-primary {
+    border-color: #1a7a58;
+    color: #1a7a58;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #1a7a58;
+    color: #fff;
+  }
+  
+  .btn-primary {
+    background-color: #1a7a58;
+    border-color: #1a7a58;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1a7a58;
+    border-color: #1a7a58;
+  }
+  
+  .btn-secondary {
+    background-color: #1a7a58;
+    border-color: #1a7a58;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #1a7a58;
+    border-color: #1a7a58;
+  }
+  /* Question Navigation */
+.question-navigation li {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 50%;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+  }
+  
+  /* Navigation item background color based on status */
+  .bg-primary { background-color: blue; color: white; }
+  .bg-success { background-color: green; color: white; }
+  .bg-warning { background-color: yellow; color: black; }
+  .bg-danger { background-color: red; color: white; }
+  
+  /* Selected option border */
+  .border-primary { border: 2px solid #1a7a58; }
+  /* table */
+  .result {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.border-green{
+    border: 2px solid #1a7a58;
+}
+.optiontext:hover{
+    border: 2px solid #1a7a58;
+}
+.table {
+    margin-top: 20px;
+}
+
+.table th {
+    background-color: #1a7a58;
+    color: white;
+}
+
+.table td {
+    font-size: 18px;
 }

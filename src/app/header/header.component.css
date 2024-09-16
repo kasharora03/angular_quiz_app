@@ -1,0 +1,25 @@
+*{
+    color: white;
+}
+*:hover{
+    color: white;
+    
+}
+
+.nav-head:hover{
+    transform: scale(1.08);
+    transition: 1sec all ease-in-out;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    /* background-color: #fff; */
+    border-radius: 10%;
+}
+.nav-link{
+    font-size: 20px;
+}
+.navbar{
+    background-color: #1a7a58;
+}

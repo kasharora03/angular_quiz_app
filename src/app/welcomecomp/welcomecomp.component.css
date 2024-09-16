@@ -1,3 +1,34 @@
-/* .orange{
-    color:orangered
-} */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* Additional styling if needed
+.container {
+   height: 90vh;
+  }
+   */
+   .green{
+    background-color: #1a7a58;
+   }
+   .heading-welcome{
+    font-weight: bold;
+    font-size: 60px;
+    font-style: italic;
+    font-family: "Montserrat", sans-serif;
+   }
+   .mon{
+    font-family: "Montserrat", sans-serif;
+   }
+   ol>li{
+    font-family: "Montserrat", sans-serif;
+
+   }
+   .btnclass{
+    background-color: #1a7a58;
+    color: white;
+    border: 1px solid white;
+    font-weight: bold;
+   }
+   .btnclass:hover{
+    background-color: white;
+    color: #1a7a58;
+    border: 1px solid #1a7a58;
+    font-weight: bold;
+   }

@@ -1,18 +1,25 @@
-<div class="container py-5 orange bg-light">
-    <h1 class="display-5">Welcome to the quiz app</h1>
-    <p class="col-md-8 fs-4">This quiz contains 9 questions, each worth 10 points.</p>
-    <ol>
-      <li>Correct answers add up 10 points</li>
-      <li>Incorrect answers subtract 10 points</li>
-      <li>20 seconds to answer each question</li>
-      <li>Refreshing the page will reset the quiz</li>
-      <li>All questions are mandatory</li>
-    </ol>
-    <h1 class="text-center display-6">All the Best!</h1>
-    <div class="name col-md-4 my-3">
-      <label>Enter your Name Below</label>
-      <input #name type="text" class="form-control" placeholder="name">
+<div class="py-5 green ">
+  <div class="row">
+    <div class="col-md-7 p-5 text-white">
+      <h1 class="heading-welcome ">Welcome to the quiz app</h1>
+      <p class="col-md-8 fs-4 mon">This quiz contains 9 questions, each worth 10 points.</p>
+      <ol>
+        <li>Correct answers add up 10 points</li>
+        <li>Incorrect answers subtract 10 points</li>
+        <li>20 seconds to answer each question</li>
+        <li>Refreshing the page will reset the quiz</li>
+        <li>All questions are mandatory</li>
+      </ol>
+      <!-- <h1 class="text-center display-6">All the Best!</h1> -->
+      <div class="name col-md-6 my-3 mon">
+        <label class="mon">Enter your Name Below</label>
+        <input #name type="text" class="form-control" >
+      </div>
+      <button class="btn mon btnclass btn-lg" routerLink="/question" (click)="startQuiz()">Start Quiz</button>
     </div>
-    <button class="btn btn-primary btn-lg" routerLink="/question" (click)="startQuiz()">Start Quiz</button>
+
+  <div class="col-md-5">
+    <img src="../../assets/img/quiz.png" alt="no quiz logo"/>
   </div>
-  
+</div>
+</div>
