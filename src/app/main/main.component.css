@@ -1,0 +1,47 @@
+/* Full-screen image styling */
+.full-screen-image {
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(30, 30, 30) 0%, rgb(0, 0, 0) 99.4%);
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: white; /* Text color */
+    font-family: monospace; /* Font style */
+    overflow: hidden; /* Prevent overflow */
+    position: relative; /* Positioning for parallax */
+}
+
+/* Parallax background */
+.parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%; /* Full height */
+    /* background-image: url('your-background-image.jpg'); */
+    background-attachment: fixed; /* Parallax effect */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1; /* Behind the text */
+}
+
+/* Typing container */
+.typing-container {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    font-size: 36px; /* Adjust font size as needed */
+}
+
+/* Cursor styling */
+.cursor {
+    display: inline-block;
+    animation: blink 0.7s infinite; /* Blinking effect */
+    margin-left: 5px; /* Space between cursor and text */
+}
+
+/* Blinking animation */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

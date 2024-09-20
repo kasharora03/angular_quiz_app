@@ -13,3 +13,23 @@
     margin: 10px 0;
   }
   
+  .result{
+    background-color: black;
+  }
+  .custom-table {
+    background-color: black; /* Dark background */
+    color: white; /* Text color */
+  }
+  
+  .custom-table th {
+    background-color: #000000; /* Darker header */
+  }
+  
+  .custom-table tbody tr:nth-child(odd) {
+    background-color: #3d3939 !important; /* Gray for odd rows */
+  }
+  
+  .custom-table tbody tr:nth-child(even) {
+    background-color: black !important; /* Dark for even rows */
+  }
+  

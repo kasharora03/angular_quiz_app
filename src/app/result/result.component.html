@@ -1,9 +1,52 @@
-<div class="container">
-    <h1>Quiz Results</h1>
-    <p>Correct Answers: {{correctans}}</p>
-    <p>Incorrect Answers: {{incorrectans}}</p>
-    <p>Attempted Questions: {{attempted}}</p>
-    <p>Unattempted Questions: {{unattempted}}</p>
-    <p>Total Points: {{totalPoints}}</p>
+<div class="row">
+  <div class="result card p-4 col-md-6">
+    <h3 class="mb-4 text-center text-white"><strong class="display-6">Congratulations!!</strong> 
+      <br>
+      Quiz Completed!
+      </h3>
+    <table class="table table-bordered table-striped table-dark custom-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Total Questions Attempted</td>
+          <td>{{ totalQuestions - unattemptedQuestions }}</td>
+        </tr>
+        <tr>
+          <td>Total Unattempted Questions</td>
+          <td>{{ unattemptedQuestions }}</td>
+        </tr>
+        <tr>
+          <td>Total Correct Answers</td>
+          <td>{{ correctAnswers }}</td>
+        </tr>
+        <tr>
+          <td>Total Incorrect Answers</td>
+          <td>{{ incorrectAnswers }}</td>
+        </tr>
+        <tr>
+          <td>Your Score</td>
+          <td>{{ score }} Points</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+  <div class="col-md-4">
+    <canvas baseChart
+            [datasets]="[{ data: attemptedData, backgroundColor: ['#36A2EB', '#FF6384'] }]"
+            [labels]="attemptedLabels"
+            [options]="{ responsive: true }"
+            chartType="pie">
+    </canvas>
+    <canvas baseChart
+            [datasets]="[{ data: correctnessData, backgroundColor: ['#4CAF50', '#F44336'] }]"
+            [labels]="correctnessLabels"
+            [options]="{ responsive: true }"
+            chartType="pie">
+    </canvas>
+  </div>
+</div>

@@ -1,32 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../../services/question/question.service';
-import { interval } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ResultComponent } from '../result/result.component';
+import { interval } from 'rxjs';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ResultComponent, HeaderComponent],
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
   public quesList: any = [];
   public currQues: number = 0;
-  counter = 60;
+  counter = 30; // Set timer to 30 seconds
   correctans: number = 0;
   incorrectans: number = 0;
   points = 0;
   interval$: any;
   progress: string = "0";
-  isQuizCompleted:boolean=false;
+  isQuizCompleted: boolean = false;
   public name: string = "";
-  questionStatuses: string[] = []; // Array to hold question statuses
-  selectedOption: any = {}; // Track selected options for each question
+  questionStatuses: string[] = [];
+  selectedOption: any = {};
+  public totalQuestions: number = 0;
+  showAlert: boolean = false; // Alert visibility flag
+  timeOutMessage: string = ""; // Message when time is out
 
-  constructor(private quesService: QuestionService, private router: Router) { }
+  constructor(private quesService: QuestionService) {}
 
   ngOnInit() {
     this.name = localStorage.getItem("name")!;
@@ -34,12 +38,19 @@ export class QuestionComponent implements OnInit {
     this.startCounter();
   }
 
+  goToQuestion(index: number) {
+    this.currQues = index;
+    this.updateProgress();
+    this.resetCounter(); // Reset the timer when navigating to a question
+  }
+
   getAllQuestions() {
     this.quesService.getQuestionJson().subscribe(
       res => {
         this.quesList = res.questions;
-        this.questionStatuses = Array(this.quesList.length).fill('not-attempted'); // Initialize statuses
-        this.selectedOption = {}; // Initialize selected options
+        this.totalQuestions = this.quesList.length;
+        this.questionStatuses = Array(this.totalQuestions).fill('not-attempted');
+        this.selectedOption = {};
         this.updateProgress();
       },
       error => {
@@ -48,80 +59,77 @@ export class QuestionComponent implements OnInit {
     );
   }
 
+  selectOption(option: any) {
+    this.selectedOption[this.currQues] = option;
+    this.questionStatuses[this.currQues] = 'attempted';
+    this.showAlert = false; // Hide alert when an option is selected
+
+    // Update points based on selection
+    if (option.correct) {
+      this.points += 10;
+      this.correctans++;
+    } else {
+      this.incorrectans++;
+    }
+  }
+
+  saveAndNext() {
+    if (this.selectedOption[this.currQues]) {
+      this.showAlert = false; // Hide alert if option is selected
+      this.questionStatuses[this.currQues] = 'completed';
+      this.nextQuestion();
+    } else {
+      this.showAlert = true; // Show alert if no option selected
+      setTimeout(() => {
+        this.showAlert = false; // Hide alert after 10 seconds
+      }, 10000);
+    }
+  }
+
+  reviewAndNext() {
+    if (this.selectedOption[this.currQues]) {
+      this.showAlert = false; // Hide alert if option is selected
+      this.questionStatuses[this.currQues] = 'review';
+      this.nextQuestion();
+    } else {
+      this.showAlert = true; // Show alert if no option selected
+      setTimeout(() => {
+        this.showAlert = false; // Hide alert after 10 seconds
+      }, 10000);
+    }
+  }
+
   nextQuestion() {
     if (this.currQues < this.quesList.length - 1) {
       this.currQues++;
       this.updateProgress();
-    }
-  }
-
-  prevQuestion() {
-    if (this.currQues > 0) {
-      this.currQues--;
-      this.updateProgress();
-    }
-  }
-
-  selectOption(option: any) {
-    // Track the selected option
-    const prevOption = this.selectedOption[this.currQues];
-    
-    if (prevOption) {
-      // Deduct points if the previously selected option was incorrect
-      if (!prevOption.correct) {
-        this.points -= 10;
-        this.incorrectans--;
-      }
-    }
-    
-    // Update the selected option
-    this.selectedOption[this.currQues] = option;
-    
-    // Add points if the newly selected option is correct
-    if (option.correct) {
-      this.points += 10;
-      this.correctans++;
-      // this.incorrectans--;
+      this.resetCounter(); // Reset timer for the next question
     } else {
-      this.incorrectans++;
-      // this.incorrectans++;
+      this.submitQuiz(); // Submit the quiz if it's the last question
     }
-    
-    // Mark the question as attempted
-    this.questionStatuses[this.currQues] = 'attempted';
-    
-    console.log(`Selected Option: ${option.text}, Is Correct: ${option.correct}`);
-    console.log(`Points: ${this.points}, Correct Answers: ${this.correctans}, Incorrect Answers: ${this.incorrectans}`);
-  }
-
-  saveAndNext() {
-    // Mark the question as completed and move to the next question
-    this.questionStatuses[this.currQues] = 'completed';
-    this.nextQuestion();
-  }
-
-  reviewAndNext() {
-    // Mark the question as reviewed and move to the next question
-    this.questionStatuses[this.currQues] = 'review';
-    this.nextQuestion();
-  }
-
-  goToQuestion(index: number) {
-    this.currQues = index;
-    this.updateProgress();
   }
 
   startCounter() {
+    this.counter = 30; // Reset the counter at the start
     this.interval$ = interval(1000).subscribe(() => {
       this.counter--;
       if (this.counter === 0) {
-        this.saveAndNext(); // Move to next question when time is up
-        this.counter = 60; // Reset the counter
+        this.questionStatuses[this.currQues] = 'not-attempted'; // Mark as unattempted
+        if (this.isLastQuestion()) {
+          this.timeOutMessage = "Out of time! Quiz submitted."; // Set timeout message for last question
+          this.submitQuiz(); // Submit the quiz if it's the last question
+        } else {
+          this.nextQuestion(); // Go to the next question automatically
+        }
       }
     });
     setTimeout(() => {
       this.stopCounter();
-    }, 600000); // Stop counter after 10 minutes
+    }, 600000);
+  }
+
+  resetCounter() {
+    this.counter = 30; // Reset the counter for the current question
   }
 
   stopCounter() {
@@ -131,87 +139,39 @@ export class QuestionComponent implements OnInit {
     this.counter = 0;
   }
 
-  resetCounter() {
-    this.stopCounter();
-    this.startCounter();
-    this.counter = 60;
-  }
-
-  resetQuiz() {
-    this.getAllQuestions();
-    this.resetCounter();
-    this.counter = 60;
-    this.currQues = 0;
-    this.updateProgress();
-  }
-
   updateProgress() {
     this.progress = ((this.currQues / this.quesList.length) * 100).toString();
-  }
+}
+
 
   getNavBgClass(index: number): string {
     const status = this.questionStatuses[index];
     if (index === this.currQues && this.selectedOption[this.currQues]) {
-      return 'bg-primary'; // Blue for selected options
+      return 'bg-primary';
     }
     if (status === 'completed') {
-      return 'bg-success'; // Green for completed questions
+      return 'bg-success';
     }
     if (status === 'review') {
-      return 'bg-warning'; // Yellow for reviewed questions
+      return 'bg-warning';
     }
-    return 'bg-danger'; // Red for not attempted questions
+    return 'bg-danger';
   }
 
   submitQuiz() {
-    // let attempted = 0;
-    // let unattempted = 0;
-
-    // this.questionStatuses.forEach(status => {
-    //   if (status === 'completed' || status === 'review') {
-    //     attempted++;
-    //   } else if (status === 'not-attempted') {
-    //     unattempted++;
-    //   }
-    // });
-
-    // // Calculate the score based on selected options
-    // this.correctans = 0;
-    // this.incorrectans = 0;
-    // this.points = 0;
-
-    // this.quesList.forEach((question: any, index: number) => {
-    //   if (this.selectedOption[index]) {
-    //     if (this.selectedOption[index].correct) {
-    //       this.correctans++;
-    //       this.points += 10;
-    //     } else {
-    //       this.incorrectans++;
-    //       this.points -= 10;
-    //     }
-    //   }
- 
-    // });
-    this.isQuizCompleted=true;
-    // console.log('Attempted:', attempted);
-    // console.log('Unattempted:', unattempted);
-    // console.log('Correct:', this.correctans);
-    // console.log('Incorrect:', this.incorrectans);
-    // console.log('Points:', this.points);
-
-    // Navigate to result component with calculated data
-    // this.router.navigate(['/result'], { 
-    //   state: { 
-    //     correctans: this.correctans,
-    //     incorrectans: this.incorrectans,
-    //     attempted: attempted,
-    //     unattempted: unattempted,
-    //     totalPoints: this.points // Pass total points to the result component
-    //   }
-    // });
+    this.isQuizCompleted = true;
   }
 
   isLastQuestion() {
     return this.currQues === this.quesList.length - 1;
+  }
+
+  closeAlert() {
+    this.showAlert = false; // Close alert manually
+  }
+
+  // New method to calculate unattempted questions
+  getUnattemptedCount(): number {
+    return this.questionStatuses.filter(status => status === 'not-attempted').length;
   }
 }

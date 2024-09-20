@@ -1,9 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css") */
 /* Additional styling if needed
 .container {
    height: 90vh;
   }
    */
+   .list{
+      list-style: none;
+   }
+   .welcome{
+      overflow-x: hidden;
+      height: 90vh;
+      /* background-image: url('https://moewalls.com/wp-content/uploads/2023/09/anonymous-thumb.jpg'); */
+      background-image: url('../../assets/img//Rulebg.png');
+   }
+   .welcomeinput{
+      background: none;
+   }
+   .welcomeinput:hover, .welcomeinput:focus{
+      background-color: #3d3939;
+      box-shadow: rgb(42, 42, 42) 0px 10px 10px -10px;
+      color: white;
+   }
    .green{
     background-color: #1a7a58;
    }
@@ -16,19 +34,20 @@
    .mon{
     font-family: "Montserrat", sans-serif;
    }
-   ol>li{
+   ul>li{
     font-family: "Montserrat", sans-serif;
+    font-style: italic;
 
    }
    .btnclass{
-    background-color: #1a7a58;
+    background-color: black;
     color: white;
     border: 1px solid white;
     font-weight: bold;
    }
    .btnclass:hover{
-    background-color: white;
-    color: #1a7a58;
-    border: 1px solid #1a7a58;
+    background-color: #3d3939;
+    color: white;
+    border: 1px solid white;
     font-weight: bold;
    }

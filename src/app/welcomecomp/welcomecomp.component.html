@@ -1,25 +1,36 @@
-<div class="py-5 green ">
+<app-header></app-header>
+<div class="py-5 green welcome ">
   <div class="row">
     <div class="col-md-7 p-5 text-white">
-      <h1 class="heading-welcome ">Welcome to the quiz app</h1>
-      <p class="col-md-8 fs-4 mon">This quiz contains 9 questions, each worth 10 points.</p>
-      <ol>
-        <li>Correct answers add up 10 points</li>
-        <li>Incorrect answers subtract 10 points</li>
-        <li>20 seconds to answer each question</li>
-        <li>Refreshing the page will reset the quiz</li>
-        <li>All questions are mandatory</li>
-      </ol>
+      <h1 class="heading-welcome ">Rules for Quiz App</h1>
+      <!-- <p class="col-md-8 fs-4 mon">This quiz contains 9 questions, each worth 10 points.</p> -->
+      <ul class="list">
+        <li>
+          <img src="../../assets/img/coding.png" alt="anuragimg" width="30px" height="30px" class="my-2"/>
+          Correct answers add up 10 points</li>
+        <li>
+          <img src="../../assets/img/coding.png" alt="anuragimg" width="30px" height="30px" class="my-2"/>
+          Incorrect answers subtract 10 points</li>
+        <li>
+          <img src="../../assets/img/coding.png" alt="anuragimg" width="30px" height="30px" class="my-2"/>
+          60 seconds to answer each question</li>
+        <li>
+          <img src="../../assets/img/coding.png" alt="anuragimg" width="30px" height="30px" class="my-2"/>
+          Refreshing the page will reset the quiz</li>
+        <li>
+          <img src="../../assets/img/coding.png" alt="anuragimg" width="30px" height="30px" class="my-2"/>
+          All questions are mandatory</li>
+      </ul>
       <!-- <h1 class="text-center display-6">All the Best!</h1> -->
       <div class="name col-md-6 my-3 mon">
         <label class="mon">Enter your Name Below</label>
-        <input #name type="text" class="form-control" >
+        <input #name type="text" class="form-control welcomeinput" required>
       </div>
       <button class="btn mon btnclass btn-lg" routerLink="/question" (click)="startQuiz()">Start Quiz</button>
     </div>
 
-  <div class="col-md-5">
+  <!-- <div class="col-md-5">
     <img src="../../assets/img/quiz.png" alt="no quiz logo"/>
-  </div>
+  </div> -->
 </div>
 </div>

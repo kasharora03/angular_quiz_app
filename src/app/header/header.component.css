@@ -1,5 +1,6 @@
 *{
     color: white;
+    
 }
 *:hover{
     color: white;
@@ -21,5 +22,8 @@
     font-size: 20px;
 }
 .navbar{
-    background-color: #1a7a58;
+    /* background: radial-gradient(circle at 24.1% 68.8%, rgb(30, 30, 30) 0%, rgb(0, 0, 0) 99.4%); */
+    background-color: 
+    rgb(20,20,20);
+    /* box-shadow: rgb(33, 33, 33) 0px 20px 30px -10px; */
 }

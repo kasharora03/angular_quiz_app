@@ -1,21 +1,3 @@
-/* Full-screen image styling */
-.full-screen-image {
-    background-image: url('/assets/img/heroimg.png'); /* Path to your local image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Parallax effect */
-    height: 100vh; /* Full viewport height */
-    width: 100%;
-  }
-  
-  /* Styling for the content section */
- 
-  
-  /* Ensure that the content section comes after the image */
-  .welcome-content {
-    background-color: white; /* Optional: Background color for the content */
-  }
-  *{
-    background-color: #1a7a58;
-  }
-  
+*{
+  overflow-x: hidden;
+}
